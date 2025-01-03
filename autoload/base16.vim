@@ -44,8 +44,14 @@ function! base16#highlight(bang, group, ...)
   endif
   if len(l:attrs) > 0
     execute 'highlight' a:group 'gui='.join(l:attrs, ',')
+      if !has('termguicolors') || !&termguicolors
+        execute 'highlight' a:group 'cterm='.join(l:attrs, ',')
+      endif
   elseif a:bang
     execute 'highlight' a:group 'gui=NONE'
+      if !has('termguicolors') || !&termguicolors
+        execute 'highlight' a:group 'cterm=NONE'
+      endif
   endif
 endfunction
 
